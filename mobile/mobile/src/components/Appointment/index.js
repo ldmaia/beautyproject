@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { parseISO, formatRelative } from 'date-fns';
 import pt from 'date-fns/locale/pt';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
 import currentAvatar from '../../assets/default_user.jpg';
@@ -10,6 +10,8 @@ import { Container, Left, Avatar, Info, Name, Time, Canceled } from './styles';
 
 export default function Appointment({ data, onCancel }) {
     // console.tron.log(data.provider.avatar.url);
+  const DEFAULT_IMAGE = Image.resolveAssetSource(currentAvatar).uri;
+
   const dateFormated = useMemo(() => {
     return formatRelative(parseISO(data.date), new Date(), {
       locale: pt,
@@ -21,11 +23,11 @@ export default function Appointment({ data, onCancel }) {
 
     <Container past={data.past}>
       <Left>
-        <Avatar
+        <Avatar resizeMode={'cover'}
           source={{
-            uri: data.provider.avatar
+            uri: data.provider.avatar && __DEV__
             ? data.provider.avatar.url
-            : `https://reactnative.dev/img/tiny_logo.png`,
+            : DEFAULT_IMAGE,
           }}
         />
         <Info>

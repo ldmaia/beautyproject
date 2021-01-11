@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import Dashboard from '~/pages/Dashboard';
 import Profile from '~/pages/Profile';
-// import NewAppointment from './NewAppointment';
+import NewAppointment from './NewAppointment';
 
 const AppTab = createBottomTabNavigator();
 
@@ -18,7 +18,8 @@ export default function Auth() {
 
   return (
     <AppTab.Navigator
-      screenOptions={{ resetOnBlur: true, tabBarVisible: true }}
+      screenOptions={{ unmountOnBlur:true, tabBarVisible: true }}
+
       tabBarOptions={{
         keyboardHidesTabBar: true,
         activeTintColor: '#fff',
@@ -31,8 +32,15 @@ export default function Auth() {
         name="Dashboard"
         component={Dashboard}
       />
+
+      <AppTab.Screen
+        options={screenOptions('Agendar', 'add-circle-outline')}
+        name="Select"
+        component={NewAppointment}
+      />
+
        <AppTab.Screen
-        options={screenOptions('My Profile', 'person')}
+        options={screenOptions('Meu Perfil', 'person')}
         name="Profile"
         component={Profile}
       />
